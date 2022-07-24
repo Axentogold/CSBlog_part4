@@ -1,0 +1,27 @@
+@model CSBlog.Core.ViewModels.Blog.TagViewModel
+
+@{
+  ViewData["Title"] = "Update tag";
+  Layout = "_Layout";
+}
+
+@using (Html.BeginForm("Update", "Tag",
+  FormMethod.Post, new { @class = "login-form" }))
+{
+    @* @Html.HiddenFor(j => j.Id) *@
+  <fieldset class="d-flex flex-column align-items-start">
+    <legend>
+      <h2>
+        Edit existing tag
+      </h2>
+    </legend>
+    <div class="form-group  ">
+      <label class="col-form-label mt-4" asp-for="@Model.TagName"></label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="@Model.TagName" asp-for="@Model.TagName" aria-label="@Model.TagName" aria-describedby="edit-tag">
+        <button type="submit" class="btn btn-primary" id="edit-tag">Submit</button>
+      </div>
+      <span asp-validation-for="@Model.TagName" class="text-danger"></span>
+    </div>
+  </fieldset>
+}

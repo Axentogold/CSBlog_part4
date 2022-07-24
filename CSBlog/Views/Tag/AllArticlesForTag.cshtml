@@ -1,0 +1,69 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CSBlog.Core
+@using System.Security.Claims
+@model CSBlog.Core.ViewModels.Blog.TagArticleViewModel
+
+@{
+  ViewData["Title"] = "All Articles for Tag: " + Model.TagName;
+  Layout = "_Layout";
+}
+
+@{
+  var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+}
+
+<h2>All Articles for Tag: @Model.TagName</h2>
+<div class="py-1">
+  @foreach (var article in Model.Tag!.Articles)
+  {
+    <div class="card border-light mb-3">
+      <div class="card-header">
+        Tags:
+        @foreach (var tag in article.Tags)
+        {
+          <a class="text-decoration-none" asp-controller="Tag" asp-action="AllArticlesForTag" asp-route-tagName="@tag?.TagName">
+            <span class="badge bg-info">
+              @tag?.TagName
+            </span>
+          </a>
+        }
+      </div>
+      <div class="card-body">
+        <a asp-action="Read" asp-controller="Article" asp-route-articleId="@article.Id">
+          <h4 class="card-title">@article.Title</h4>
+        </a>
+        <small>
+          by
+          <a class="text-decoration-none" href="#">
+            <span class="">@article.Author</span>
+          </a>
+          on
+          <span class="">@article.Published.Date.ToShortDateString()</span>
+        </small>
+
+        <div class="card-text">
+          @Html.Raw(article.Text?.Trim())
+        </div>
+      </div>
+
+      @if (article.UserId == userId || 
+           User.IsInRole(Constants.Roles.Moderator))
+      {
+        <div class="btn-group justify-content-end" role="group" aria-label="Basic example">
+          <a asp-action="Update" asp-controller="Article" asp-route-id="@article.Id">
+            <button type="button" class="btn btn-secondary mx-2">
+              <i class="bi bi-pencil-fill"></i> Edit
+            </button>
+          </a>
+
+          <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">
+            <button type="button" class="btn btn-secondary">
+              <i class="bi bi-trash-fill"></i> Delete
+            </button>
+          </a>
+        </div>
+      }
+    </div>
+  }
+
+</div>

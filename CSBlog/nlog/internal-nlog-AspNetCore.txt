@@ -1,0 +1,20 @@
+2022-05-24 15:51:21.5536 Info Message Template Auto Format enabled
+2022-05-24 15:51:21.5643 Info Loading assembly: NLog.Web.AspNetCore
+2022-05-24 15:51:21.5979 Info Adding target FileTarget(Name=allfile)
+2022-05-24 15:51:21.5992 Info Adding target FileTarget(Name=ownFile-web)
+2022-05-24 15:51:21.5992 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2022-05-24 15:51:21.6219 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=56, FilePath=/home/az/DEV/DotNET/SF_CSharp/Rider/SF_CSharp_Part4/CSBlog/CSBlog/bin/Debug/net6.0/nlog.config
+2022-05-24 15:51:21.6593 Info Shutdown() called. Logger closing...
+2022-05-24 15:51:21.6593 Info Closing old configuration.
+2022-05-24 15:51:21.6723 Info Logger has been closed down.
+2022-05-24 15:51:21.7318 Info Loading NLog config from XML file: /home/az/DEV/DotNET/SF_CSharp/Rider/SF_CSharp_Part4/CSBlog/CSBlog/nlog.config
+2022-05-24 15:51:21.7318 Info Message Template Auto Format enabled
+2022-05-24 15:51:21.7321 Info Loading assembly: NLog.Web.AspNetCore
+2022-05-24 15:51:21.7321 Info Adding target FileTarget(Name=allfile)
+2022-05-24 15:51:21.7321 Info Adding target FileTarget(Name=ownFile-web)
+2022-05-24 15:51:21.7321 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2022-05-24 15:51:21.7331 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=56, FilePath=/home/az/DEV/DotNET/SF_CSharp/Rider/SF_CSharp_Part4/CSBlog/CSBlog/nlog.config
+2022-05-24 15:57:12.7174 Info Configuration file change detected! Reloading in 1000ms...
+2022-05-24 15:57:12.7199 Info Configuration file change detected! Reloading in 1000ms...
+2022-05-24 15:57:13.7204 Info Reloading configuration...
+2022-05-24 15:57:13.7216 Info Loading NLog config from XML file: /home/az/DEV/DotNET/SF_CSharp/Rider/SF_CSharp_Part4/CSBlog/CSBlog/nlog.config

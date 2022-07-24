@@ -1,0 +1,24 @@
+@model CSBlog.Core.ViewModels.Blog.TagViewModel
+
+@{
+  ViewData["Title"] = "Create tag";
+  Layout = "_Layout";
+}
+
+
+@using (Html.BeginForm("Create", "Tag"))
+{
+  <fieldset class="d-flex flex-column align-items-start">
+    <legend>
+      <h2>Create a new tag</h2>
+    </legend>
+    <div class="form-group">
+      <label class="col-form-label mt-4" asp-for="TagName"></label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter some text" asp-for="TagName" aria-label="Enter some text" aria-describedby="add-new-tag">
+        <span asp-validation-for="@Model.TagName" class="text-danger"></span>
+        <button class="btn btn-primary" type="submit" id="add-new-tag">Add</button>
+      </div>
+    </div>
+  </fieldset>
+}

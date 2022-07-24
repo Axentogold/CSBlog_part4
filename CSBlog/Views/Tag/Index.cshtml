@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CSBlog.Core
+@model IEnumerable<CSBlog.Models.Blog.Tag>
+
+@{
+  ViewData["Title"] = "All Tags Page";
+  Layout = "_Layout";
+}
+
+
+<div class="d-flex justify-content-between">
+  <h2>Tags</h2>
+  @if (User.IsInRole(Constants.Roles.Moderator))
+  {
+    <a asp-controller="Tag" asp-action="Create">
+      <button class="btn  btn-primary my-2">Add new</button>
+    </a>
+  }
+
+</div>
+
+
+<div class="d-flex flex-row flex-wrap gap-2 py-3">
+  @foreach (var tag in Model)
+  {
+    <div class="form-group ">
+      <div class="input-group my-1  hover-shadow">
+        <a class="text-decoration-none" asp-controller="Tag" asp-action="Update" asp-route-id="@tag.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to edit '@tag.TagName' tag">
+          <span class="input-group-text bg-light">
+            @tag.TagName
+          </span>
+        </a>
+        <a asp-controller="Tag" asp-action="Delete" asp-route-id="@tag.Id" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click to delete '@tag.TagName' tag">
+          <span class="input-group-text bg-danger">
+            <i class="bi bi-trash-fill text-light"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  }
+</div>

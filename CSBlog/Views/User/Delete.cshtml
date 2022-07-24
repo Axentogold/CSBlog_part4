@@ -1,0 +1,48 @@
+@model CSBlog.Models.User.BlogUser
+
+@{
+  ViewData["Title"] = "User delete";
+  Layout = "_Layout";
+}
+
+
+@using (Html.BeginForm("Delete", "User", FormMethod.Post))
+{
+  @Html.HiddenFor(j => Model.Id)
+  <fieldset>
+    <legend>
+      <h2>Really delete this user?</h2>
+      <small>This action cannot be undone</small>
+    </legend>
+  </fieldset>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Fields</th>
+      <th scope="col">User data</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">First Name</th>
+      <td>@Model.FirstName</td>
+
+    </tr>
+    <tr class="table-light">
+      <th scope="row">Last Name</th>
+      <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+      <th scope="row">Email</th>
+      <td>@Model.Email</td>
+
+    </tr>
+    <tr class="table-light">
+      <th scope="row">Registered on:</th>
+      <td>@Model.Registered.ToShortDateString()</td>
+    </tr>
+
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary">Submit</button>
+}

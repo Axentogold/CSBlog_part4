@@ -1,0 +1,43 @@
+@model CSBlog.Core.ViewModels.Blog.ArticleViewModel
+
+@{
+  ViewData["Title"] = "Create Article";
+  Layout = "_Layout";
+}
+
+<partial name="_TextEditorPartial"/>
+
+<h2>Edit Article</h2>
+@using (Html.BeginForm("Update", "Article"))
+{
+  <div class="mb-3">
+    <label asp-for="Article!.Title" for="article-title" class="form-label">Title</label>
+    <input asp-for="Article!.Title" type="text" class="form-control" id="article-title" placeholder="">
+    <span asp-validation-for="Article!.Title" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Article!.Text" for="text-area" class="form-label">Text</label>
+    <textarea  asp-for="Article!.Text"  class="form-control" id="text-area" rows="3"></textarea>
+    <span asp-validation-for="@Model.Article!.Text" class="text-danger"></span>
+  </div>
+
+  <h2>Add Tags</h2>
+  <div class="d-flex flex-row flex-wrap gap-1 py-3 align-items-center">
+    @if (Model.Tags != null)
+    {
+      @for (var i = 0; i < Model.Tags.Count; i++)
+      {
+        <div class="form-check form-switch">
+          @Html.CheckBoxFor(c => Model.Tags[i].Selected, new { @class = "form-check-input", @checked = "false" })
+          @Html.HiddenFor(h => Model.Tags[i].Value)
+
+          @Html.LabelFor(l => Model.Tags[i].Selected, Model.Tags[i].Text, new { @class = "form-check-label" })
+          @Html.HiddenFor(h => Model.Tags[i].Text)
+        </div>
+      }
+    }
+  </div>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary " type="submit" id="add-new-tag">Submit</button>
+  </div>
+}

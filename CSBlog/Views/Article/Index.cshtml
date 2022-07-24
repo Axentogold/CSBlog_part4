@@ -1,0 +1,86 @@
+@model CSBlog.Core.ViewModels.Blog.ArticleTagsViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CSBlog.Core
+@using System.Security.Claims
+
+@{
+  ViewData["Title"] = "All Blog Articles";
+  Layout = "_Layout";
+
+}
+
+@{
+  var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+}
+
+<div class="d-flex justify-content-between">
+  <h2>All Blog Articles</h2>
+  @if (User.Identity!.IsAuthenticated  &&
+       User.IsInRole(Constants.Roles.Author)
+    )
+  {
+    <a asp-controller="Article" asp-action="Create">
+      <button class="btn  btn-primary my-2">Add new</button>
+    </a>
+  }
+</div>
+
+
+<div class="py-1">
+
+  @{
+    System.Diagnostics.Debug.Assert(Model.Articles != null, "Model.Articles != null");
+  }
+  @foreach (var article in Model.Articles)
+  {
+    <div class="card border-light mb-3">
+      <div class="card-header">
+        Tags:
+        @foreach (var tag in article.Tags)
+        {
+          <a class="text-decoration-none" asp-controller="Tag" asp-action="AllArticlesForTag" asp-route-tagName="@tag?.TagName">
+            <span class="badge bg-info">
+              @tag?.TagName
+            </span>
+          </a>
+        }
+      </div>
+      <div class="card-body">
+        <a asp-action="Read" asp-controller="Article" asp-route-articleId="@article.Id">
+          <h4 class="card-title">@article.Title</h4>
+        </a>
+        <small>
+          by
+          <a class="text-decoration-none" href="#">
+            <span class="">@article.Author</span>
+          </a>
+          on
+          <span class="">@article.Published.Date.ToShortDateString()</span>
+        </small>
+
+        <div class="card-text">
+          @Html.Raw(article.Text?.Trim())
+        </div>
+      </div>
+
+      @if (article.UserId == userId || 
+           User.IsInRole(Constants.Roles.Moderator))
+      {
+        <div class="btn-group justify-content-end" role="group" aria-label="Basic example">
+          <a asp-action="Update" asp-controller="Article" asp-route-id="@article.Id">
+            <button type="button" class="btn btn-secondary mx-2">
+              <i class="bi bi-pencil-fill"></i> Edit
+            </button>
+          </a>
+
+          <a asp-action="Delete" asp-controller="Article" asp-route-id="@article.Id">
+            <button type="button" class="btn btn-secondary">
+              <i class="bi bi-trash-fill"></i> Delete
+            </button>
+          </a>
+        </div>
+      }
+    </div>
+  }
+
+</div>

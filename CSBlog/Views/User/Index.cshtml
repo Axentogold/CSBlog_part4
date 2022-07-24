@@ -1,0 +1,71 @@
+@using CSBlog.Models.User
+@using CSBlog.Core
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using NuGet.Protocol
+@model ICollection<CSBlog.Models.User.BlogUser>
+@inject UserManager<BlogUser> BlogUserManager
+
+@{
+  ViewData["Title"] = "User Page";
+  Layout = "_Layout";
+}
+
+<h2>User View Index</h2>
+@* ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract *@
+@if (Model != null && Model.Any())
+{
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Role(s)</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+      <tr>
+        <th scope="row">@BlogUserManager.GetRolesAsync(user).Result.ToJson()</th>
+        <td>@user.FirstName</td>
+        <td>@user.LastName</td>
+        <td>
+          @* @if (BlogUserManager.GetRolesAsync(userIdentity).Result.Contains(Constants.Roles.Administrator)) *@
+          @if (User.IsInRole(Constants.Roles.Administrator))
+          {
+            @user.Email
+          }
+          else
+          {
+            <span>-</span>
+          }
+        </td>
+        <td>
+          @if (User.IsInRole(Constants.Roles.Administrator))
+          {
+            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+          }
+          else
+          {
+            <span>-</span>
+          }
+        </td>
+        <td>
+          @if (User.IsInRole(Constants.Roles.Administrator))
+          {
+            <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+          }
+          else
+          {
+            <span>-</span>
+          }
+        </td>
+
+      </tr>
+    }
+    </tbody>
+  </table>
+}

@@ -1,0 +1,50 @@
+@model CSBlog.Core.ViewModels.User.EditUserViewModel
+
+@{
+  ViewData["Title"] = "User Edit";
+  Layout = "_Layout";
+}
+<h2>User Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "User"))
+{
+  @Html.HiddenFor(j => Model.BlogUser.Id)
+  <fieldset>
+    <legend>Edit user</legend>
+
+    <div class="form-group">
+      <label asp-for="@Model.BlogUser.FirstName" class="form-label mt-4"></label>
+      <input asp-for="@Model.BlogUser.FirstName" class="form-control" autocomplete="username" placeholder="First Name">
+      <span asp-validation-for="@Model.BlogUser.FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="@Model.BlogUser.LastName" class="form-label mt-4"></label>
+      <input asp-for="@Model.BlogUser.LastName" class="form-control" autocomplete="username" placeholder="Last Name">
+      <span asp-validation-for="@Model.BlogUser.LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="@Model.BlogUser.Email" class="form-label mt-4"></label>
+      <input asp-for="@Model.BlogUser.Email" type="email" class="form-control" autocomplete="email" placeholder="Email">
+      <span asp-validation-for="@Model.BlogUser.Email" class="text-danger"></span>
+    </div>
+
+
+    <fieldset>
+      <legend class="mt-4">Roles</legend>
+
+      @for (var i = 0; i < Model.UserRoles.Count; i++)
+      {
+        <div class="form-check form-switch">
+          @Html.CheckBoxFor(c => Model.UserRoles[i].Selected, new { @class = "form-check-input" })
+          @Html.HiddenFor(h => Model.UserRoles[i].Value)
+
+          @Html.LabelFor(l => Model.UserRoles[i].Selected, Model.UserRoles[i].Text, new { @class = "form-check-label" })
+          @Html.HiddenFor(h => Model.UserRoles[i].Text)
+        </div>
+      }
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+}
